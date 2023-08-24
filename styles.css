@@ -1,0 +1,23 @@
+.main-window {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 700px;
+    margin: 48px auto;
+    border: solid 2px grey;
+}
+
+.row {
+    display: flex;
+    flex: 1;
+    justify-content: space-around;    
+}
+
+button {
+    flex: 1;
+    border-radius: 0px;
+    border-color: #333;
+    background-color: powderblue;
+    border-width: 1px;
+}
+
