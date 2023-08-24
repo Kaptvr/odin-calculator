@@ -1,16 +1,19 @@
 .main-window {
     display: flex;
     flex-direction: column;
-    width: 500px;
-    height: 700px;
+    width: 400px;
+    height: 600px;
     margin: 48px auto;
-    border: solid 2px grey;
+    border: 1px solid #333;
 }
 
 .row {
     display: flex;
     flex: 1;
-    justify-content: space-around;    
+    justify-content: space-around;
+    border-color: #333;
+    background-color: cornsilk;
+    font-size: 24px;
 }
 
 button {
@@ -19,9 +22,22 @@ button {
     border-color: #333;
     background-color: cornsilk;
     border-width: 1px;
+    font-size: 24px;
 }
 
 .pressed {
     background-color: peachpuff;
 }
 
+.row0 {
+    border: 1px solid #333;
+    display: flex;
+}
+
+.equation {
+    margin: 24px 48px;
+    background-color: white;
+    border: 1px solid #333;
+    flex: 1;
+    border-radius: 2px;
+}
