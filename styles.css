@@ -17,7 +17,11 @@ button {
     flex: 1;
     border-radius: 0px;
     border-color: #333;
-    background-color: powderblue;
+    background-color: cornsilk;
     border-width: 1px;
+}
+
+.pressed {
+    background-color: peachpuff;
 }
 
