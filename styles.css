@@ -1,3 +1,7 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+}
+
 .main-window {
     display: flex;
     flex-direction: column;
@@ -40,4 +44,5 @@ button {
     border: 1px solid #333;
     flex: 1;
     border-radius: 2px;
+    text-align: right;
 }
