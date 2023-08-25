@@ -58,16 +58,99 @@ function deleteLastChar () {
 }
 
 function evaluateEquasion () {
-    // console.log(equation);
-    // console.log(typeof equation);
+    let copy = equation;
+    copy = splitEquationString('+', copy)
+    copy = splitEquationArray('-', ...copy)
+    copy = splitEquationArray('*', ...copy)
+    copy = splitEquationArray('/', ...copy)
 
-    // equationArray = Array.from(equation);
+    copy = calculateResult(copy);
 
-    // test = equation.split('+');
+    console.log(copy);
+    
+}
 
-    // console.log(test);
-    // console.log(typeof test);
+function splitEquationString (operator, copy) {
+    copy = copy.split(operator);
+    let temp = []
+    for (let i = 0; i < copy.length - 1; i++) {
+        temp.push(copy[i]);
+        temp.push(operator);
+    }
+    temp.push(copy[copy.length - 1]);
+    return temp;
+}
 
+function splitEquationArray (operator, ...copy) {
+    let temp = [];
+    copy.forEach(item => {
+        item = item.split(operator);
+        for (let i = 0; i < item.length - 1; i++) {
+            temp.push(item[i]);
+            temp.push(operator);
+        }
+        temp.push(item[item.length - 1]);
+    });
+    return temp; 
+}
+
+function multiDiv (copy) {
+    while (copy.indexOf('/') != -1 || copy.indexOf('*') != -1) {
+        while (copy.indexOf('/') != -1 && copy.indexOf('*') != -1) {
+            if (copy.indexOf('/') < copy.indexOf('*')) {
+                let index = copy.indexOf('/');
+                let partResult = parseFloat(copy[index - 1]) / parseFloat(copy[index + 1])
+                copy.splice(index - 1, 3, partResult)
+            } else {
+                let index = copy.indexOf('*');
+                let partResult = parseFloat(copy[index - 1]) * parseFloat(copy[index + 1])
+                copy.splice(index - 1, 3, partResult)
+            }
+        }
+        if (copy.indexOf('/') == -1) {
+            let index = copy.indexOf('*');
+            let partResult = parseFloat(copy[index - 1]) * parseFloat(copy[index + 1])
+            copy.splice(index - 1, 3, partResult)
+        } else if (copy.indexOf('*') == -1) {
+            let index = copy.indexOf('/');
+            let partResult = parseFloat(copy[index - 1]) / parseFloat(copy[index + 1])
+            copy.splice(index - 1, 3, partResult)
+        } 
+    }
+    return copy;
+}
+
+function addSubs (copy) {
+    while (copy.indexOf('-') != -1 || copy.indexOf('+') != -1) {
+        while (copy.indexOf('-') != -1 && copy.indexOf('+') != -1) {
+            if (copy.indexOf('-') < copy.indexOf('+')) {
+                let index = copy.indexOf('-');
+                let partResult = parseFloat(copy[index - 1]) - parseFloat(copy[index + 1])
+                copy.splice(index - 1, 3, partResult)
+            } else {
+                let index = copy.indexOf('+')
+                let partResult = parseFloat(copy[index - 1]) + parseFloat(copy[index + 1])
+                copy.splice(index - 1, 3, partResult)
+            }
+        }
+        if (copy.indexOf('-') == -1) {
+            let index = copy.indexOf('+')
+            let partResult = parseFloat(copy[index - 1]) + parseFloat(copy[index + 1])
+            copy.splice(index - 1, 3, partResult)
+        } else if (copy.indexOf('+') == -1) {
+            let index = copy.indexOf('-');
+            let partResult = parseFloat(copy[index - 1]) - parseFloat(copy[index + 1])
+            copy.splice(index - 1, 3, partResult)
+        } 
+    }
+    return copy;
+}
+
+function calculateResult (copy) {
+    copy = multiDiv(copy);
+    copy = addSubs(copy);
+    
+    return copy;
 }
 
 
