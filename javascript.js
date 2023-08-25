@@ -58,6 +58,15 @@ function deleteLastChar () {
 }
 
 function evaluateEquasion () {
+    // console.log(equation);
+    // console.log(typeof equation);
+
+    // equationArray = Array.from(equation);
+
+    // test = equation.split('+');
+
+    // console.log(test);
+    // console.log(typeof test);
 
 }
 
