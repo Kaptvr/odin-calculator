@@ -36,7 +36,7 @@ function registerButton () {
             } else if (e.target.classList[0] == 'Delete') {
                 deleteLastChar();
             } else if (e.target.classList[0] == 'equal') {
-                evaluateEquasion();
+                evaluateEquation();
             }
         })
     })
@@ -57,7 +57,7 @@ function deleteLastChar () {
     updateEquationField();
 }
 
-function evaluateEquasion () {
+function evaluateEquation () {
     let copy = equation;
     copy = splitEquationString('+', copy)
     copy = splitEquationArray('-', ...copy)
@@ -66,8 +66,8 @@ function evaluateEquasion () {
 
     copy = calculateResult(copy);
 
-    console.log(copy);
-    
+    equation = copy;
+    updateEquationField();    
 }
 
 function splitEquationString (operator, copy) {
