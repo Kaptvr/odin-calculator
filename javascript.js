@@ -223,9 +223,22 @@ function addSubstract (copy) {
     return copy;
 }
 
+function changeTheme() {
+    const button = document.querySelector('.theme');
+    const html = document.querySelector('html')
+    const mainWindow = document.querySelector('.main-window');
+    button.addEventListener('click', (e) => {
+        e.target.classList.toggle("dark");
+        html.classList.toggle("dark");
+        mainWindow.classList.toggle("dark");
+
+    })
+}
+
 function main() {
     registerButton();
     animateButton();
+    changeTheme();
 }
 
 main ();
