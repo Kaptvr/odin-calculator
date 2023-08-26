@@ -141,7 +141,7 @@ function multiplicateDivide (copy) {
         while (copy.indexOf('/') != -1 && copy.indexOf('*') != -1) {
             if (copy.indexOf('/') < copy.indexOf('*')) {
                 let index = copy.indexOf('/');
-                if (parseInt(copy[index + 1]) == 0) {
+                if (parseFloat(copy[index + 1]) == 0) {
                     alert('You really shouldn\'t divide by 0');
                     return ('Divided by 0');
                 }
@@ -159,7 +159,7 @@ function multiplicateDivide (copy) {
             copy.splice(index - 1, 3, partResult)
         } else if (copy.indexOf('*') == -1) {
             let index = copy.indexOf('/');
-            if (parseInt(copy[index + 1]) == 0) {
+            if (parseFloat(copy[index + 1]) == 0) {
                 alert('You really shouldn\'t divide by 0');
                 return ('Divided by 0');
             }
