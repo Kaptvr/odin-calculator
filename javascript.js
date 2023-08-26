@@ -43,6 +43,7 @@ function registerButton () {
 }
 
 function updateEquationField () {
+    console.log(equation);
     const equationField = document.querySelector('.equation');
     equationField.textContent = equation;
 }
@@ -60,19 +61,18 @@ function deleteLastChar () {
 function evaluateEquation () {
     let copy = equation;
     copy = splitEquationString('+', copy);
-    console.log(copy + ' ' + 'after +');
     copy = splitEquationArray('-', ...copy);
-    console.log(copy + ' ' + 'after -');
     copy = splitEquationArray('*', ...copy);
-    console.log(copy + ' ' + 'after *');
     copy = splitEquationArray('/', ...copy);
-    console.log(copy + ' ' + 'after /');
     copy = splitEquationArray('^', ...copy);
-    console.log(copy + ' ' + 'after ^');
     copy = splitEquationArray('!', ...copy);
-    console.log(copy + ' ' + 'after !');
 
     copy = calculateResult(copy);
+    if (copy == 'Divided by 0') {
+        equation = '';
+        updateEquationField();
+        return;  
+    }
 
     equation = copy;
     updateEquationField();    
@@ -106,6 +106,9 @@ function calculateResult (copy) {
     copy = factorial(copy);
     copy = exponentiate(copy);
     copy = multiplicateDivide(copy);
+    if (copy == 'Divided by 0') {
+        return copy;
+    }
     copy = addSubstract(copy);
     
     return copy;
@@ -138,6 +141,10 @@ function multiplicateDivide (copy) {
         while (copy.indexOf('/') != -1 && copy.indexOf('*') != -1) {
             if (copy.indexOf('/') < copy.indexOf('*')) {
                 let index = copy.indexOf('/');
+                if (parseInt(copy[index + 1]) == 0) {
+                    alert('You really shouldn\'t divide by 0');
+                    return ('Divided by 0');
+                }
                 let partResult = parseFloat(copy[index - 1]) / parseFloat(copy[index + 1])
                 copy.splice(index - 1, 3, partResult)
             } else {
@@ -152,6 +159,10 @@ function multiplicateDivide (copy) {
             copy.splice(index - 1, 3, partResult)
         } else if (copy.indexOf('*') == -1) {
             let index = copy.indexOf('/');
+            if (parseInt(copy[index + 1]) == 0) {
+                alert('You really shouldn\'t divide by 0');
+                return ('Divided by 0');
+            }
             let partResult = parseFloat(copy[index - 1]) / parseFloat(copy[index + 1])
             copy.splice(index - 1, 3, partResult)
         } 
