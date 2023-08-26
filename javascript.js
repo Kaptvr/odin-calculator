@@ -59,10 +59,18 @@ function deleteLastChar () {
 
 function evaluateEquation () {
     let copy = equation;
-    copy = splitEquationString('+', copy)
-    copy = splitEquationArray('-', ...copy)
-    copy = splitEquationArray('*', ...copy)
-    copy = splitEquationArray('/', ...copy)
+    copy = splitEquationString('+', copy);
+    console.log(copy + ' ' + 'after +');
+    copy = splitEquationArray('-', ...copy);
+    console.log(copy + ' ' + 'after -');
+    copy = splitEquationArray('*', ...copy);
+    console.log(copy + ' ' + 'after *');
+    copy = splitEquationArray('/', ...copy);
+    console.log(copy + ' ' + 'after /');
+    copy = splitEquationArray('^', ...copy);
+    console.log(copy + ' ' + 'after ^');
+    copy = splitEquationArray('!', ...copy);
+    console.log(copy + ' ' + 'after !');
 
     copy = calculateResult(copy);
 
@@ -94,7 +102,38 @@ function splitEquationArray (operator, ...copy) {
     return temp; 
 }
 
-function multiDiv (copy) {
+function calculateResult (copy) {
+    copy = factorial(copy);
+    copy = exponentiate(copy);
+    copy = multiplicateDivide(copy);
+    copy = addSubstract(copy);
+    
+    return copy;
+}
+
+function factorial (copy) {
+    while (copy.indexOf('!') != -1) {
+        let index = copy.indexOf('!');
+        let limit = parseInt(copy[index - 1])
+        let partResult = 1;
+        for (let i = 0; i < limit; i++) {
+            partResult *= i + 1;
+        }
+        copy.splice(index - 1, 3, partResult)
+    }
+    return copy;
+}
+
+function exponentiate (copy) {
+    while (copy.indexOf('^') != -1) {
+        let index = copy.indexOf('^');
+        let partResult = parseFloat(copy[index - 1]) ** parseFloat(copy[index + 1])
+        copy.splice(index - 1, 3, partResult);
+    }
+    return copy;
+}
+
+function multiplicateDivide (copy) {
     while (copy.indexOf('/') != -1 || copy.indexOf('*') != -1) {
         while (copy.indexOf('/') != -1 && copy.indexOf('*') != -1) {
             if (copy.indexOf('/') < copy.indexOf('*')) {
@@ -120,7 +159,7 @@ function multiDiv (copy) {
     return copy;
 }
 
-function addSubs (copy) {
+function addSubstract (copy) {
     while (copy.indexOf('-') != -1 || copy.indexOf('+') != -1) {
         while (copy.indexOf('-') != -1 && copy.indexOf('+') != -1) {
             if (copy.indexOf('-') < copy.indexOf('+')) {
@@ -145,14 +184,6 @@ function addSubs (copy) {
     }
     return copy;
 }
-
-function calculateResult (copy) {
-    copy = multiDiv(copy);
-    copy = addSubs(copy);
-    
-    return copy;
-}
-
 
 function main() {
     registerButton();
