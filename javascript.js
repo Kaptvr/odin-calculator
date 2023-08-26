@@ -67,7 +67,6 @@ function addToEquation (e) {
 }
 
 function updateEquationField () {
-    // console.log(equation);
     const equationField = document.querySelector('.equation');
     equationField.textContent = equation;
 }
@@ -133,7 +132,8 @@ function calculateResult (copy) {
     if (copy == 'Divided by 0') {
         return copy;
     }
-    if (copy[1] == '-') {
+    console.log(copy);
+    if (copy[1] == '-' && copy[0] == '') {
         copy.splice(0, 1, '0')
     }
     copy = addSubstract(copy);
