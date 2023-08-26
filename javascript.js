@@ -29,7 +29,7 @@ function registerButton () {
             if (e.target.classList[0] == 'operand' ||
                 e.target.classList[0] == 'operator' ||
                 e.target.classList[0] == 'comma') {
-                equation += e.target.textContent;
+                addToEquation(e);
                 updateEquationField ();
             } else if (e.target.classList[0] == 'AC') {
                 clearEquation();
@@ -42,8 +42,34 @@ function registerButton () {
     })
 }
 
+function addToEquation (e) {
+    let addedChar = e.target.textContent;
+    let lastChar = equation[equation.length - 1];
+    console.log(addedChar);
+    console.log(lastChar);
+
+    if ((addedChar == '+' || addedChar == '/' ||
+        addedChar == '*' || addedChar == '^' || 
+        addedChar == '!') &&
+        lastChar == undefined) {
+            return;
+    } else if (addedChar == '!' && lastChar == '!') {
+        return;
+    } else if (
+        (addedChar == '+' || addedChar == '/' ||
+        addedChar == '*' || addedChar == '^' || 
+        addedChar == '-' || addedChar == '!') &&
+        (lastChar == '+' || lastChar == '/' ||
+        lastChar == '*' || lastChar == '^' || 
+        lastChar == '-')) {
+            return;
+    } else {
+        equation += e.target.textContent;
+    }
+}
+
 function updateEquationField () {
-    console.log(equation);
+    // console.log(equation);
     const equationField = document.querySelector('.equation');
     equationField.textContent = equation;
 }
