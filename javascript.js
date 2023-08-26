@@ -45,8 +45,6 @@ function registerButton () {
 function addToEquation (e) {
     let addedChar = e.target.textContent;
     let lastChar = equation[equation.length - 1];
-    console.log(addedChar);
-    console.log(lastChar);
 
     if ((addedChar == '+' || addedChar == '/' ||
         addedChar == '*' || addedChar == '^' || 
@@ -134,6 +132,9 @@ function calculateResult (copy) {
     copy = multiplicateDivide(copy);
     if (copy == 'Divided by 0') {
         return copy;
+    }
+    if (copy[1] == '-') {
+        copy.splice(0, 1, '0')
     }
     copy = addSubstract(copy);
     
