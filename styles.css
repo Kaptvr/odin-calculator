@@ -24,10 +24,9 @@ body {
     display: flex;
     flex-direction: column;
     width: 400px;
-    margin: 150px auto;
+    margin: 50px auto;
     padding: 20px;
     gap: 20px;
-    /* border: 1px solid #333; */
     background-color: teal;
     box-shadow: 10px 10px 10px 0px #aaa;
 }
@@ -78,14 +77,17 @@ button {
 
 .equation {
     background-color:turquoise;
-    /* border: 1px solid #333; */
-    display: flex;
-    /* flex: 1 1 auto; */
-    align-items: center;
-    justify-content: right;
-    height: 112px;
+    text-align: right;
+    height: 148px;
     padding: 8px;
     font-size: 58px;
     border-radius: 8px;
     box-shadow: inset 5px 5px 3px 0px #555;
+    word-wrap:break-word;
+}
+
+.warning {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    font-size: 32px;
 }

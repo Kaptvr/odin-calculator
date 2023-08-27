@@ -26,6 +26,10 @@ function registerButton () {
     const buttons = document.querySelectorAll('button');
     buttons.forEach(button => {
         button.addEventListener('mouseup', e => {
+            if (equation.toString().includes('e+') ||
+                equation == 'Infinity') {
+                clearEquation();
+            }
             if (e.target.classList[0] == 'operand' ||
                 e.target.classList[0] == 'operator' ||
                 e.target.classList[0] == 'comma') {
@@ -61,8 +65,11 @@ function addToEquation (e) {
         lastChar == '*' || lastChar == '^' || 
         lastChar == '-')) {
             return;
-    } else {
+    } else if (equation.length < 22) {
         equation += e.target.textContent;
+    } else {
+        const warning = document.querySelector('.warning');
+        warning.textContent = 'You\'ve reached character limit';
     }
 }
 
@@ -73,16 +80,21 @@ function updateEquationField () {
 
 function clearEquation () {
     equation = ''
+    const warning = document.querySelector('.warning');
+    warning.textContent = '';
     updateEquationField();
 }
 
 function deleteLastChar () {
     equation = equation.slice(0, equation.length - 1);
+    const warning = document.querySelector('.warning');
+    warning.textContent = '';
     updateEquationField();
 }
 
 function evaluateEquation () {
     let copy = equation;
+    
     copy = splitEquationString('+', copy);
     copy = splitEquationArray('-', ...copy);
     copy = splitEquationArray('*', ...copy);
@@ -132,7 +144,6 @@ function calculateResult (copy) {
     if (copy == 'Divided by 0') {
         return copy;
     }
-    console.log(copy);
     if (copy[1] == '-' && copy[0] == '') {
         copy.splice(0, 1, '0')
     }
